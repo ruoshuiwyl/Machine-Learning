@@ -11,18 +11,21 @@
 
 class BackPropNNetwork{
 public:
-    BackPropNNetwork(std::vector<int> net);
-    void Training(const Matrix2D &training_data, const Matrix2D &traing_y);
-    void BatchTraing(const Matrix2D& batch_training_data, const Matrix2D& batch_taring_y);
-    void SingleTraing(const std::vector<double> &taring_dta, const std::vector<double> &training_y);
+    BackPropNNetwork(std::vector<int> &sizes, double eta, int max_iters, int batch_num);
+    void Training(const Matrix &training_data, const Matrix &training_result);
+    void BatchTraing(const Matrix& batch_training_data, const Matrix& batch_tarining_result);
+    void SingleTraing(const std::vector<double> &taring_dta, const std::vector<double> &training_result);
 
 private:
     int batch_num_;
     int max_iters_;
     double eta_;
-    std::vector<Matrix2D> global_weights_;
-    std::vector<double> global_biases_;
-    std::vector<int> sizes;
+    std::vector<Matrix> global_weights_;
+    std::vector<std::vector<double>> global_biases_;
+    std::vector<Matrix> delta_global_wreghts_;
+    std::vector<std::vector<double>> delta_global_biases_;
+    std::vector<std::vector<double>> input_, output_;
+    std::vector<int> sizes_;
 
 };
 
