@@ -43,7 +43,7 @@ Matrix& Matrix::operator+(Matrix &m) {
     }
 }
 
-void Matrix::ComputeDelta(const std::vector<double> &delta, const std::vector<double> &partial_delta) {
+void Matrix::ComputeDelta(const std::vector<double> &delta, std::vector<double> &partial_delta) {
     for (int i = 0; i < col_; ++i) {
         double result = 0.0;
         for (int j = 0;j < row_; ++j) {
@@ -53,10 +53,18 @@ void Matrix::ComputeDelta(const std::vector<double> &delta, const std::vector<do
     }
 }
 
-void Matrix::Sub(const const double &r, const Matrix &delta_matrix) {
+void Matrix::Sub(const double &r, const Matrix &delta_matrix) {
     for (int i = 0; i < row_; ++i) {
         for (int j = 0; j < col_; ++j) {
             matrix_[i][j] -= r * delta_matrix.matrix_[i][j];
+        }
+    }
+}
+
+void Matrix::Add(const Matrix &matrix) {
+    for ( int i = 0; i < row_; ++i){
+        for ( int j = 0; j < col_; ++j) {
+            matrix_[i][j] += matrix.matrix_[i][j];
         }
     }
 }
