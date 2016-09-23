@@ -20,3 +20,7 @@ void BackPropNNetwork::SingleTraing(const std::vector<double> &taring_dta,
 
 }
 
+void BackPropNNetwork::ComputeDelta(const std::vector<double> &partial_delta) {
+
+
+}

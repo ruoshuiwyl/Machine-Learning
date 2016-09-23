@@ -17,6 +17,8 @@ public:
     void SingleTraing(const std::vector<double> &taring_dta, const std::vector<double> &training_result);
 
 private:
+
+    void ComputeDelta(const std::vector<double> &partial_delta);
     int batch_num_;
     int max_iters_;
     double eta_;
