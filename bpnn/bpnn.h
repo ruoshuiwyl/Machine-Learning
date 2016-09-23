@@ -8,25 +8,44 @@
 
 #include <vector>
 #include "util.h"
+#include <cmath>
 
 class BackPropNNetwork{
 public:
     BackPropNNetwork(std::vector<int> &sizes, double eta, int max_iters, int batch_num);
     void Training(const Matrix &training_data, const Matrix &training_result);
-    void BatchTraing(const Matrix& batch_training_data, const Matrix& batch_tarining_result);
-    void SingleTraing(const std::vector<double> &taring_dta, const std::vector<double> &training_result);
+    void BatchTraining(const Matrix &batch_training_data, const Matrix &batch_tarining_result);
+    void SingleTraining(const std::vector<double> &tarining_data, const std::vector<double> &training_result);
 
 private:
-
+    void ComputeSigmoid(const std::vector<double> &input, std::vector<double> &output);
+    void ComputeSigmoidPrime(const std::vector<double> &input, std::vector<double> &output);
+    void ComputeDeltaWeight(const std::vector<double> &intput, const std::vector<double> &delta, Matrix &delta_weight);
+    void ComputeCostDerivative(const std::vector<double> &activation, const std::vector<double> &taining_result);
     void ComputeDelta(const std::vector<double> &partial_delta);
+    void FeedForward(const std::vector<double> &input);
+    void ComputeOutput(const Matrix &weight, const std::vector<double> biases, std::vector<double> &z,
+                       std::vector<double> &a, std::vector<double> &output);
+
+    inline const double sigmoid(const double x) {
+        return 1.0 / (1.0 + exp(-x));
+    }
+
+    inline const double sigmoid_prime(const double x) {
+        const double t = sigmoid(x);
+        return t * (1.0 - t);
+    }
+
     int batch_num_;
     int max_iters_;
     double eta_;
     std::vector<Matrix> global_weights_;
     std::vector<std::vector<double>> global_biases_;
-    std::vector<Matrix> delta_global_wreghts_;
+    std::vector<Matrix> delta_global_weights_;
     std::vector<std::vector<double>> delta_global_biases_;
-    std::vector<std::vector<double>> input_, output_;
+    std::vector<std::vector<double>> delta_, delta_biases_;
+    std::vector<Matrix> delta_weight_;
+    std::vector<std::vector<double>> input_z_, output_a_;
     std::vector<int> sizes_;
 
 };

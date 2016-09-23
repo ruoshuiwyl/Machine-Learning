@@ -9,11 +9,12 @@ public:
 
     Matrix(int row, int col, double vals);
 
-    void Dot(const std::vector<double> &a, std::vector<double> &x);
+    void Dot(const std::vector<double> &a, std::vector<double> &x) const;
     void ComputeDelta(const std::vector<double> &delta, const std::vector<double> &partial_delta);
 
-   Matrix &operator+(Matrix &m);
-
+    Matrix &operator+(Matrix &m);
+    void  Sub(const  double &r, const Matrix &delta_matrix);
+    Matrix (const std::vector<double> &input, const std::vector<double> &delta);
 private:
     std::vector<std::vector<double>> matrix_;
     int row_;
